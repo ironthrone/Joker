@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.Joker;
 import com.example.jokerlib.JokerActivity;
 
 
@@ -43,9 +42,21 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        Intent intent = new Intent(this, JokerActivity.class);
-        intent.putExtra(JokerActivity.KEY_JOKE, Joker.getJoke());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final String joke = RemoteUtil.getJoke();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+        Intent intent = new Intent(MainActivity.this, JokerActivity.class);
+        intent.putExtra(JokerActivity.KEY_JOKE, joke);
         startActivity(intent);
+
+                    }
+                });
+            }
+        }).start();
     }
 
 
