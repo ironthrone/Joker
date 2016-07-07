@@ -42,21 +42,17 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        new Thread(new Runnable() {
+            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask();
+        asyncTask.setDelegate(new EndpointsAsyncTask.AsyncResponse() {
             @Override
-            public void run() {
-                final String joke = RemoteUtil.getJoke();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-        Intent intent = new Intent(MainActivity.this, JokerActivity.class);
-        intent.putExtra(JokerActivity.KEY_JOKE, joke);
-        startActivity(intent);
+            public void processResult(String s) {
+            Intent intent = new Intent(MainActivity.this, JokerActivity.class);
+            intent.putExtra(JokerActivity.KEY_JOKE, s);
+            startActivity(intent);
 
-                    }
-                });
             }
-        }).start();
+        });
+        asyncTask.execute();
     }
 
 
