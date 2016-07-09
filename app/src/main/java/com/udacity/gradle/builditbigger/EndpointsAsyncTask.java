@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.backend.myApi.MyApi;
@@ -13,8 +14,24 @@ import java.io.IOException;
  */
 public class EndpointsAsyncTask extends AsyncTask<Void,Void,String> {
     private static MyApi myApiService = null;
+    private final Context mContext;
+    private final ProgressDialog mProgress;
 
-    private AsyncResponse delegate;
+    public EndpointsAsyncTask(Context context) {
+        mContext = context;
+        mProgress = new ProgressDialog(mContext);
+//        mProgress.setCustomTitle();
+//        mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
+
+    private OnCompleteListener mOnCompleteListener;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+mProgress.show();
+    }
+
     @Override
     protected String doInBackground(Void... params) {
         if(myApiService == null) {  // Only do this once
@@ -35,20 +52,22 @@ public class EndpointsAsyncTask extends AsyncTask<Void,Void,String> {
         }
     }
 
+
     @Override
     protected void onPostExecute(String s) {
+        mProgress.dismiss();
         if(s == null) return;
-        if(delegate != null){
+        if(mOnCompleteListener != null){
 
-        delegate.processResult(s);
+        mOnCompleteListener.onComplete(s);
         }
     }
 
-    public void setDelegate(AsyncResponse delegate){
-        this.delegate = delegate;
+    public void setmOnCompleteListener(OnCompleteListener mOnCompleteListener){
+        this.mOnCompleteListener = mOnCompleteListener;
     }
 
-    public interface AsyncResponse{
-        void processResult(String s);
+    public interface OnCompleteListener {
+        void onComplete(String s);
     }
 }

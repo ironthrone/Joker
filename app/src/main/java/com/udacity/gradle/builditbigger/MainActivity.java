@@ -42,10 +42,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask();
-        asyncTask.setDelegate(new EndpointsAsyncTask.AsyncResponse() {
+            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this);
+        asyncTask.setmOnCompleteListener(new EndpointsAsyncTask.OnCompleteListener() {
             @Override
-            public void processResult(String s) {
+            public void onComplete(String s) {
             Intent intent = new Intent(MainActivity.this, JokerActivity.class);
             intent.putExtra(JokerActivity.KEY_JOKE, s);
             startActivity(intent);
@@ -54,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
         });
         asyncTask.execute();
     }
+
 
 
 }
