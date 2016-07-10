@@ -25,6 +25,6 @@ public class EndpointsAsyncTaskTest {
     @Test
     public void testDoInBackground() throws Exception {
         String joke = mAsyncTask.execute().get();
-        assertTrue("to get joke failed",joke != null);
+        assertTrue("get joke failed",joke != null);
     }
 }

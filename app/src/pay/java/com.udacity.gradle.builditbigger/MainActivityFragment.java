@@ -34,7 +34,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         if(v.getId() == R.id.get_joke){
             EndpointsAsyncTask asyncTask = new EndpointsAsyncTask();
             asyncTask.setDialog(new ProgressDialog(getActivity()));
-            asyncTask.setmOnCompleteListener(new EndpointsAsyncTask.OnCompleteListener() {
+            asyncTask.setOnCompleteListener(new EndpointsAsyncTask.OnCompleteListener() {
                 @Override
                 public void onComplete(String s) {
                     Intent intent = new Intent(getActivity(), JokerActivity.class);
