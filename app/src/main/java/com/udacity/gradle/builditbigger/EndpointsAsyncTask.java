@@ -1,6 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Context;
+import android.app.Dialog;
 import android.os.AsyncTask;
 
 import com.example.backend.myApi.MyApi;
@@ -15,12 +15,13 @@ import java.io.IOException;
 public class EndpointsAsyncTask extends AsyncTask<Void,Void,String> {
     private static MyApi myApiService = null;
     //must be activity
-    private final Context mContext;
-    private final ProgressDialog mProgress;
+    private Dialog mProgress;
 
-    public EndpointsAsyncTask(Context context) {
-        mContext = context;
-        mProgress = new ProgressDialog(mContext);
+    public EndpointsAsyncTask() {
+    }
+
+    public void setDialog(Dialog dialog){
+        mProgress = dialog;
     }
 
     private OnCompleteListener mOnCompleteListener;
@@ -28,7 +29,7 @@ public class EndpointsAsyncTask extends AsyncTask<Void,Void,String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-mProgress.show();
+        if(mProgress != null) mProgress.show();
     }
 
     @Override
@@ -54,7 +55,7 @@ mProgress.show();
 
     @Override
     protected void onPostExecute(String s) {
-        mProgress.dismiss();
+        if(mProgress != null && mProgress.isShowing()) mProgress.dismiss();
         if(s == null) return;
         if(mOnCompleteListener != null){
 
@@ -62,7 +63,7 @@ mProgress.show();
         }
     }
 
-    public void setmOnCompleteListener(OnCompleteListener mOnCompleteListener){
+    public void setOnCompleteListener(OnCompleteListener mOnCompleteListener){
         this.mOnCompleteListener = mOnCompleteListener;
     }
 

@@ -18,6 +18,7 @@ public class EndpointsAsyncTaskTest {
 
     @Before
     public void createAsyncTask(){
+
         mAsyncTask = new EndpointsAsyncTask();
     }
 

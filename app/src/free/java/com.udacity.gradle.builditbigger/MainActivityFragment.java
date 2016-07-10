@@ -72,8 +72,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         @Override
         public void onAdClosed() {
             super.onAdClosed();
-            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(getActivity());
-            asyncTask.setmOnCompleteListener(new EndpointsAsyncTask.OnCompleteListener() {
+            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask();
+            asyncTask.setDialog(new ProgressDialog(getActivity()));
+            asyncTask.setOnCompleteListener(new EndpointsAsyncTask.OnCompleteListener() {
                 @Override
                 public void onComplete(String s) {
                     Intent intent = new Intent(getActivity(), JokerActivity.class);

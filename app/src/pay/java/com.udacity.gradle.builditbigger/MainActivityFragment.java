@@ -32,7 +32,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.get_joke){
-            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(getActivity());
+            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask();
+            asyncTask.setDialog(new ProgressDialog(getActivity()));
             asyncTask.setmOnCompleteListener(new EndpointsAsyncTask.OnCompleteListener() {
                 @Override
                 public void onComplete(String s) {
