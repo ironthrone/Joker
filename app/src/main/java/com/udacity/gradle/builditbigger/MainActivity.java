@@ -1,13 +1,9 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.example.jokerlib.JokerActivity;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -40,21 +36,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void tellJoke(View view){
-            EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(this);
-        asyncTask.setmOnCompleteListener(new EndpointsAsyncTask.OnCompleteListener() {
-            @Override
-            public void onComplete(String s) {
-            Intent intent = new Intent(MainActivity.this, JokerActivity.class);
-            intent.putExtra(JokerActivity.KEY_JOKE, s);
-            startActivity(intent);
-
-            }
-        });
-        asyncTask.execute();
-    }
-
 
 
 }

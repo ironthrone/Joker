@@ -14,14 +14,13 @@ import java.io.IOException;
  */
 public class EndpointsAsyncTask extends AsyncTask<Void,Void,String> {
     private static MyApi myApiService = null;
+    //must be activity
     private final Context mContext;
     private final ProgressDialog mProgress;
 
     public EndpointsAsyncTask(Context context) {
         mContext = context;
         mProgress = new ProgressDialog(mContext);
-//        mProgress.setCustomTitle();
-//        mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     private OnCompleteListener mOnCompleteListener;
